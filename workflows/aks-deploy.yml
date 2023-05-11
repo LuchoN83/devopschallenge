@@ -1,0 +1,34 @@
+name: AKS Deploy
+
+on:
+  push:
+    branches:
+      - main  # or the branch you want to trigger the deployment on
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Install Azure CLI AKS extension
+        run: |
+          az extension add --name aks-preview
+          az extension update --name aks-preview
+
+      - name: Create or update AKS cluster
+        run: |
+          az group create --name myResourceGroup --location westus2
+          az aks create --resource-group myResourceGroup --name myAKSCluster --node-count 3 --generate-ssh-keys
+
+      - name: Deploy to AKS
+        run: |
+          # Add your deployment commands here
+
