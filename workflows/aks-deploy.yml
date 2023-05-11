@@ -27,7 +27,10 @@ stages:
               azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
               scriptType: 'ps'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az aks get-credentials --resource-group $(Cluster1_ResourceGroup) --name $(Cluster1_ClusterName)'
+              inlineScript: |
+                az --version
+                az account show
+                az aks get-credentials --resource-group $(Cluster1_ResourceGroup) --name $(Cluster1_ClusterName)
 
           - script: |
               # Add your deployment commands for Cluster 1 here
@@ -47,7 +50,10 @@ stages:
               azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
               scriptType: 'ps'
               scriptLocation: 'inlineScript'
-              inlineScript: 'az aks get-credentials --resource-group $(Cluster2_ResourceGroup) --name $(Cluster2_ClusterName)'
+              inlineScript: |
+                az --version 
+                az account show 
+                az aks get-credentials --resource-group $(Cluster2_ResourceGroup) --name $(Cluster2_ClusterName)
 
           - script: |
               # Add your deployment commands for Cluster 2 here
