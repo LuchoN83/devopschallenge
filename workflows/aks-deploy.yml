@@ -54,5 +54,3 @@ stages:
           - script: |
               # Add your deployment commands for Cluster 2 here
             displayName: 'Deploy to Cluster 2'
-
-
