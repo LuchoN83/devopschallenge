@@ -25,7 +25,7 @@ stages:
             displayName: 'Azure Login'
             inputs:
               azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
-              scriptType: 'ps'
+              scriptType: 'pscore'
               scriptLocation: 'inlineScript'
               inlineScript: 'az aks get-credentials --resource-group $(Cluster1_ResourceGroup) --name $(Cluster1_ClusterName)'
 
@@ -45,7 +45,7 @@ stages:
             displayName: 'Azure Login'
             inputs:
               azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
-              scriptType: 'ps'
+              scriptType: 'pscore'
               scriptLocation: 'inlineScript'
               inlineScript: 'az aks get-credentials --resource-group $(Cluster2_ResourceGroup) --name $(Cluster2_ClusterName)'
 
