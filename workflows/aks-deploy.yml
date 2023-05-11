@@ -1,34 +1,58 @@
-name: AKS Deploy
+trigger:
+  branches:
+    include:
+      - main
 
-on:
-  push:
-    branches:
-      - main  # or the branch you want to trigger the deployment on
+pr:
+  branches:
+    include:
+      - '*'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+variables:
+  - group: AKS_Cluster1_Variables
+  - group: AKS_Cluster2_Variables
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+stages:
+  - stage: Cluster1
+    displayName: 'Deploy to Cluster 1'
+    jobs:
+      - job: Deployment
+        displayName: 'Deploy to Cluster 1'
+        pool:
+          vmImage: 'nginxdemos/hello'
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Azure Login'
+            inputs:
+              azureSubscription: 'Visual Studio Enterprise Subscription'
+              scriptType: 'ps'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group $(Cluster1_ResourceGroup) --name $(Cluster1_ClusterName)
 
-      - name: Set up Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          - script: |
+              # Add your deployment commands for Cluster 1 here
+            displayName: 'Deploy to Cluster 1'
 
-      - name: Install Azure CLI AKS extension
-        run: |
-          az extension add --name aks-preview
-          az extension update --name aks-preview
+  - stage: Cluster2
+    displayName: 'Deploy to Cluster 2'
+    jobs:
+      - job: Deployment
+        displayName: 'Deploy to Cluster 2'
+        pool:
+          vmImage: 'nginxdemos/hello'
+        steps:
+          - task: AzureCLI@2
+            displayName: 'Azure Login'
+            inputs:
+              azureSubscription: 'Visual Studio Enterprise Subscription'
+              scriptType: 'ps'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group $(Cluster2_ResourceGroup) --name $(Cluster2_ClusterName)
 
-      - name: Create or update AKS cluster
-        run: |
-          az group create --name myResourceGroup --location westus2
-          az aks create --resource-group myResourceGroup --name myAKSCluster --node-count 3 --generate-ssh-keys
+          - script: |
+              # Add your deployment commands for Cluster 2 here
+            displayName: 'Deploy to Cluster 2'
 
-      - name: Deploy to AKS
-        run: |
-          # Add your deployment commands here
 
