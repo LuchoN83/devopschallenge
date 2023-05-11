@@ -21,7 +21,7 @@ steps:
       azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: 'az aks create --resource-group rg-glb-03 --name aksdemo3 --node-count 1 --node-vm-size Standard_D2ls_v5 --generate-ssh-keys'
+      inlineScript: 'az aks create --resource-group rg-glb-03 --name aksdemo4 --node-count 1 --node-vm-size Standard_D2ls_v5 --generate-ssh-keys'
 
   - task: Docker@2
     displayName: 'Build and push Docker image'
@@ -38,7 +38,7 @@ steps:
       connectionType: 'Azure Resource Manager'
       azureSubscriptionEndpoint: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
       azureResourceGroup: 'rg-glb-03'
-      kubernetesCluster: 'aksdemo3'
+      kubernetesCluster: 'aksdemo4'
       command: 'apply'
       useConfigurationFile: true
       configurationType: 'inline'
