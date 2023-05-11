@@ -19,7 +19,7 @@ stages:
       - job: Deployment
         displayName: 'Deploy to Cluster 1'
         pool:
-          vmImage: 'nginxdemos/hello'
+          vmImage: 'ubuntu-latest'
         steps:
           - task: AzureCLI@2
             displayName: 'Azure Login'
@@ -39,7 +39,7 @@ stages:
       - job: Deployment
         displayName: 'Deploy to Cluster 2'
         pool:
-          vmImage: 'nginxdemos/hello'
+          vmImage: 'ubuntu-latest'
         steps:
           - task: AzureCLI@2
             displayName: 'Azure Login'
