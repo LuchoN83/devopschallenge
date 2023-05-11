@@ -19,7 +19,7 @@ stages:
       - job: Deployment
         displayName: 'Deploy to Cluster 1'
         pool:
-          vmImage: 'ubuntu-latest'
+          vmImage: 'mcr.microsoft.com/windows/servercore/iis'
         steps:
           - task: AzureCLI@2
             displayName: 'Azure Login'
@@ -42,7 +42,7 @@ stages:
       - job: Deployment
         displayName: 'Deploy to Cluster 2'
         pool:
-          vmImage: 'ubuntu-latest'
+          vmImage: 'mcr.microsoft.com/windows/servercore/iis'
         steps:
           - task: AzureCLI@2
             displayName: 'Azure Login'
