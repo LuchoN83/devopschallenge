@@ -36,9 +36,9 @@ steps:
     displayName: 'Deploy to AKS'
     inputs:
       connectionType: 'Azure Resource Manager'
-      azureSubscriptionEndpoint: 'your-azure-service-connection'
-      azureResourceGroup: 'your-resource-group'
-      kubernetesCluster: 'your-aks-cluster'
+      azureSubscriptionEndpoint: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
+      azureResourceGroup: 'rg-glb-03'
+      kubernetesCluster: 'aksdemo3'
       command: 'apply'
       useConfigurationFile: true
       configurationType: 'inline'
@@ -64,3 +64,5 @@ steps:
                   image: aksdevopsacr2912/app1nginx:latest
                   ports:
                     - containerPort: 80
+      secretType: 'dockerRegistry'
+      containerRegistryType: 'Azure Container Registry'
