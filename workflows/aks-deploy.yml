@@ -19,7 +19,7 @@ stages:
       - job: Deployment
         displayName: 'Deploy to Cluster 1'
         pool:
-          vmImage: 'mcr.microsoft.com/mcr/hello-world'
+          vmImage: 'ubuntu-latest'
         steps:
           - task: AzureCLI@2
             displayName: 'Azure Login'
@@ -27,10 +27,7 @@ stages:
               azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
               scriptType: 'ps'
               scriptLocation: 'inlineScript'
-              inlineScript: |
-                az --version
-                az account show
-                az aks get-credentials --resource-group $(Cluster1_ResourceGroup) --name $(Cluster1_ClusterName)
+              inlineScript: 'az aks get-credentials --resource-group $(Cluster1_ResourceGroup) --name $(Cluster1_ClusterName)'
 
           - script: |
               # Add your deployment commands for Cluster 1 here
@@ -42,7 +39,7 @@ stages:
       - job: Deployment
         displayName: 'Deploy to Cluster 2'
         pool:
-          vmImage: 'mcr.microsoft.com/mcr/hello-world'
+          vmImage: 'ubuntu-latest'
         steps:
           - task: AzureCLI@2
             displayName: 'Azure Login'
@@ -50,10 +47,7 @@ stages:
               azureSubscription: 'Visual Studio Enterprise Subscription(8377ac7f-7423-4f7a-909b-0eed6a86ec22)'
               scriptType: 'ps'
               scriptLocation: 'inlineScript'
-              inlineScript: |
-                az --version 
-                az account show 
-                az aks get-credentials --resource-group $(Cluster2_ResourceGroup) --name $(Cluster2_ClusterName)
+              inlineScript: 'az aks get-credentials --resource-group $(Cluster2_ResourceGroup) --name $(Cluster2_ClusterName)'
 
           - script: |
               # Add your deployment commands for Cluster 2 here
